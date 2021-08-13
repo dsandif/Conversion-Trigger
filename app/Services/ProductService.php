@@ -11,12 +11,12 @@ use PhpParser\Node\Scalar\String_;
 
 class ProductService{
     protected $http;
-    protected $affiliateService;
+    protected $affiliate_service;
 
 
-    public function __construct(AffiliateService $affiliateService){
+    public function __construct(AffiliateService $affiliate_service){
         $this->http = new Client();
-        $this->affiliateService = $affiliateService;
+        $this->affiliate_service = $affiliate_service;
     }
 
 
@@ -38,10 +38,10 @@ class ProductService{
     /**
      * Creates a webhook for a topic.
      *
-     * @param string $webhookTopic
+     * @param string $webhook_topic
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function createWebhook(string $webhookTopic = "products/create")
+    public function createWebhook(string $webhook_topic = "products/create")
     {
         $shopify_key      = Config::get("services.shopify.key");
         $shopify_password = Config::get("services.shopify.password");
@@ -68,10 +68,10 @@ class ProductService{
                 'json' => $body
             ]);
 
-            return Response("Webhook created for " . $webhookTopic,201);
+            return Response("Webhook created for " . $webhook_topic,201);
 
         }catch (RequestException $exception){
-            return Response($exception->getMessage() . $webhookTopic,409);
+            return Response($exception->getMessage() . $webhook_topic,409);
         }
     }
 
@@ -85,7 +85,7 @@ class ProductService{
      */
     public function processWebhookResponse(Request $request, $webhook_data): bool
     {
-        return $this->affiliateService->newAffilliateTrigger($webhook_data);
+        return $this->affiliate_service->newAffilliateTrigger($webhook_data);
     }
 
     /**
