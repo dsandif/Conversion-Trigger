@@ -11,6 +11,7 @@ use PhpParser\Node\Scalar\String_;
 
 class ProductService{
     protected $http;
+
     protected $affiliate_service;
 
 
