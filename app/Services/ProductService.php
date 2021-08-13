@@ -95,6 +95,8 @@ class ProductService{
      */
     public function getHmacHeader(Request $request)
     {
+        $hmac_header= "";
+
         if ($request->hasHeader("X-Shopify-Hmac-Sha256")) {
             //get header
             $hmac_header = $request->header("X-Shopify-Hmac-Sha256");
